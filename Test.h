@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include "Rook.h"
+#include "BasePiece.h"
+#include "movementCheck.h"
 
 using namespace std;
 
@@ -9,7 +11,7 @@ enum Piece
 {
 
 	pawn = 1,
-	rook = 2, 
+	rook = 2,
 	queen = 3,
 	king = 4,
 	bishop = 5,
@@ -30,25 +32,33 @@ string pieceToString(int n)
 	string s("   ");
 	switch (n)
 	{
-	case 1: { s = "P__"; } break;
-	case 2: { s = "R__"; } break;
-	case 3: { s = "Q__"; } break;
-	case 4: { s = "K__"; } break;
-	case 5: { s = "B__"; } break;
-	case 6: { s = "H__"; } break;
+	case 1: { s = "P  "; } break;
+	case 2: { s = "R  "; } break;
+	case 3: { s = "Q  "; } break;
+	case 4: { s = "K  "; } break;
+	case 5: { s = "B  "; } break;
+	case 6: { s = "H  "; } break;
 	case 7: { s = "?__"; } break;
-	case 8: { s = "P_B"; } break;
-	case 9: { s = "R_B"; } break;
-	case 10: { s = "Q_B"; } break;
-	case 11: { s = "K_B"; } break;
-	case 12: { s = "B_B"; } break;
-	case 13: { s = "H_B"; } break;
+	case 8: { s = "P B"; } break;
+	case 9: { s = "R B"; } break;
+	case 10: { s = "Q B"; } break;
+	case 11: { s = "K B"; } break;
+	case 12: { s = "B B"; } break;
+	case 13: { s = "H B"; } break;
+	case 20: { s = " N "; } break;
+	default:
+		s = "Invalid or empty";
 	}
 
 	return s;
 }
 
 int main(int argc, char** argv) {
+	//sprintf("%c%c%c\n", 0xE2, 0x99, 0xA0);
+//	char q[] = "King: \xE2\x99\x94.\n";
+	//std::wcout << L"wstr [" <<  "King: \xE2\x99\x94.\n" << L']' << std::endl;
+
+//	cout << q;
 	//a
 	int wybor, pole;
 	int pawn = 1;
@@ -94,9 +104,28 @@ int main(int argc, char** argv) {
 	int f[8] = { bishop,pawn,null,null,null,null, pawnB, bishopB };
 	int g[8] = { horse,pawn,null,null,null,null, pawnB, horseB };
 	int h[8] = { rook,pawn,null,null,null,null, pawnB, rookB };
+	cout << "\n";
+	Rook* pb = new Rook();
+	pb->Setup(0, 0);
+	cout << (*pb).Name();
+	(*pb).GdzieJestem();
 
-	Rook* p = new Rook();
-	cout << p.Name();
+	cout << "\n";
+
+
+	Rook* pb2 = new Rook();
+	pb2->Setup(0, 7);
+	cout << (*pb2).Name();
+	(*pb2).GdzieJestem();
+
+	cout << "\n";
+
+	//(*pb).MoveTo(1,2);
+
+//	(*pb).GdzieJestem();
+
+	//(*pb).Run();
+	cout << "\n";
 
 	for (int i = 0; i <= 7; i++) {
 		for (int j = 0; j <= 7; j++) {
@@ -116,14 +145,56 @@ int main(int argc, char** argv) {
 
 	int choosenRow = 0;
 	int choosenColumn = 0;
+	int moveRow = 0;
+	int moveColumn = 0;
+	int choosenPiece = 0;
 	cout << "\nRow:";
 	cin >> choosenRow;
-
-	cout << "\Column:";
+	cout << "\nColumn:\n";
 	cin >> choosenColumn;
-	cout << "Choosen piece: " << pieceToString(szachy2[choosenColumn][choosenRow]);
-	cin >> choosenColumn;
+	//	choosenRow = 1;
+		//choosenColumn = 3;
+	cout << "\ntab:\n" << szachy2[choosenColumn][choosenRow];
 
+	cout << "\nChoosen piece: " << pieceToString(szachy2[choosenColumn][choosenRow]);
+	if (szachy2[choosenColumn][choosenRow]==Piece(none))
+	{
+		cout << "\nMusisz wybrac pionek\n";
+		return 0;
+	}
+	choosenPiece = szachy2[choosenColumn][choosenRow];
+	cout << "\n" << choosenPiece << "\n";
+	//cin >> choosenColumn;
+	cout << "\nWykonaj ruch w Row:\n ";
+	cin >> moveRow;
+	cout << "\nWykonaj ruch w Column:\n ";
+	cin >> moveColumn;
+	cout << "\n";
+
+	int choosenField = szachy2[moveColumn][moveRow];
+
+	MovementCheck* hi = new MovementCheck();
+	hi->movementCheck2(choosenPiece, choosenField);
+	(*pb).MoveTo(moveRow, moveColumn);
+
+	cout << "\n";
+	(*pb).GdzieJestem();
+	cout << "\n";
+	(*pb).Run();
+	szachy2[moveColumn][moveRow] = Piece(choosenPiece);
+	szachy2[choosenColumn][choosenRow] = Piece(none);
+	for (int i = 0; i <= 7; i++) {
+		for (int j = 0; j <= 7; j++) {
+			cout << "_____";
+
+		}
+		cout << "\n";
+		for (int j = 0; j <= 7; j++) {
+			cout << " |" << pieceToString(szachy2[j][i]);
+
+		}
+		cout << "\n";
+	}
 
 	return 0;
 }
