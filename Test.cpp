@@ -172,10 +172,14 @@ int main(int argc, char** argv) {
 	cout << "\n";
 
 	int choosenField = szachy2[moveColumn][moveRow];
-
+	//cout << "\n\n\nDEBUG: " << choosenField << "\n\n\n---: ";
 	MovementCheck* hi = new MovementCheck();
-	hi->movementCheck2(choosenPiece, choosenField);
+	hi->movementCheck2(choosenPiece, choosenField, choosenColumn, choosenRow, moveColumn, moveRow);
 	(*pb).MoveTo(moveRow, moveColumn);
+	//correctMove* move = new correctMove();
+	//if (correctMove = false) {
+	//	return 0;
+//	}
 
 	cout << "\n";
 	(*pb).GdzieJestem();
