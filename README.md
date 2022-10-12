@@ -1,11 +1,8 @@
 USAGE INSTRUCTION:
-Row:
-X
-X
-X
-X
-X
-(vertical movement)
-Column:
-X X X X X
-(horizontal movement)
+------------
+Input guide:
+Numerical input;; 0-7
+------------
+Row: vertical movement
+Column: horizontal movement
+------------
