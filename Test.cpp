@@ -54,12 +54,7 @@ string pieceToString(int n)
 }
 
 int main(int argc, char** argv) {
-	//sprintf("%c%c%c\n", 0xE2, 0x99, 0xA0);
-//	char q[] = "King: \xE2\x99\x94.\n";
-	//std::wcout << L"wstr [" <<  "King: \xE2\x99\x94.\n" << L']' << std::endl;
-
-//	cout << q;
-	//a
+//assign pieces to numbers
 	int wybor, pole;
 	int pawn = 1;
 	int rook = 2;
@@ -75,7 +70,7 @@ int main(int argc, char** argv) {
 	int bishopB = 12;
 	int horseB = 13;
 	int polearr[8];
-
+//assign pieces to array
 	Piece szachy2[8][8] = {
 	{Piece(rook),Piece(pawn),Piece(none),Piece(none),Piece(none),Piece(none), Piece(pawnB), Piece(rookB)},
 	{Piece(horse),Piece(pawn),Piece(none),Piece(none),Piece(none),Piece(none), Piece(pawnB), Piece(horseB)},
@@ -120,13 +115,8 @@ int main(int argc, char** argv) {
 
 	cout << "\n";
 
-	//(*pb).MoveTo(1,2);
-
-//	(*pb).GdzieJestem();
-
-	//(*pb).Run();
 	cout << "\n";
-
+//draw chess board
 	for (int i = 0; i <= 7; i++) {
 		for (int j = 0; j <= 7; j++) {
 			cout << "_____";
@@ -159,27 +149,26 @@ int main(int argc, char** argv) {
 	cout << "\nChoosen piece: " << pieceToString(szachy2[choosenColumn][choosenRow]);
 	if (szachy2[choosenColumn][choosenRow]==Piece(none))
 	{
-		cout << "\nMusisz wybrac pionek\n";
+		cout << "\nYou need to choose a piece\n";
 		return 0;
 	}
 	choosenPiece = szachy2[choosenColumn][choosenRow];
 	cout << "\n" << choosenPiece << "\n";
 	//cin >> choosenColumn;
-	cout << "\nWykonaj ruch w Row:\n ";
+	cout << "\nMove to row:\n ";
 	cin >> moveRow;
-	cout << "\nWykonaj ruch w Column:\n ";
+	cout << "\nMove to column:\n ";
 	cin >> moveColumn;
 	cout << "\n";
 
 	int choosenField = szachy2[moveColumn][moveRow];
+	
 	//cout << "\n\n\nDEBUG: " << choosenField << "\n\n\n---: ";
+	
+	//check for correct movement using the MovementCheck() function
 	MovementCheck* hi = new MovementCheck();
 	hi->movementCheck2(choosenPiece, choosenField, choosenColumn, choosenRow, moveColumn, moveRow);
 	(*pb).MoveTo(moveRow, moveColumn);
-	//correctMove* move = new correctMove();
-	//if (correctMove = false) {
-	//	return 0;
-//	}
 
 	cout << "\n";
 	(*pb).GdzieJestem();
