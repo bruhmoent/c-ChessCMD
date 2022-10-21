@@ -54,7 +54,9 @@ string pieceToString(int n)
 }
 
 int main(int argc, char** argv) {
-//assign pieces to numbers
+	
+	cout << "\n     | CHESS++ CONSOLE PROTOTYPE | ";
+
 	int wybor, pole;
 	int pawn = 1;
 	int rook = 2;
@@ -70,7 +72,7 @@ int main(int argc, char** argv) {
 	int bishopB = 12;
 	int horseB = 13;
 	int polearr[8];
-//assign pieces to array
+
 	Piece szachy2[8][8] = {
 	{Piece(rook),Piece(pawn),Piece(none),Piece(none),Piece(none),Piece(none), Piece(pawnB), Piece(rookB)},
 	{Piece(horse),Piece(pawn),Piece(none),Piece(none),Piece(none),Piece(none), Piece(pawnB), Piece(horseB)},
@@ -102,21 +104,17 @@ int main(int argc, char** argv) {
 	cout << "\n";
 	Rook* pb = new Rook();
 	pb->Setup(0, 0);
-	cout << (*pb).Name();
-	(*pb).GdzieJestem();
 
 	cout << "\n";
 
 
 	Rook* pb2 = new Rook();
 	pb2->Setup(0, 7);
-	cout << (*pb2).Name();
-	(*pb2).GdzieJestem();
 
 	cout << "\n";
 
 	cout << "\n";
-//draw chess board
+
 	for (int i = 0; i <= 7; i++) {
 		for (int j = 0; j <= 7; j++) {
 			cout << "_____";
@@ -130,8 +128,7 @@ int main(int argc, char** argv) {
 		cout << "\n";
 	}
 
-
-	char ah;
+	cout << "\n\n     |--------------------------| \n\n";
 
 	int choosenRow = 0;
 	int choosenColumn = 0;
@@ -142,37 +139,29 @@ int main(int argc, char** argv) {
 	cin >> choosenRow;
 	cout << "\nColumn:\n";
 	cin >> choosenColumn;
-	//	choosenRow = 1;
-		//choosenColumn = 3;
-	cout << "\ntab:\n" << szachy2[choosenColumn][choosenRow];
 
 	cout << "\nChoosen piece: " << pieceToString(szachy2[choosenColumn][choosenRow]);
 	if (szachy2[choosenColumn][choosenRow]==Piece(none))
 	{
-		cout << "\nYou need to choose a piece\n";
+		cout << "\nChoose a valid piece.\n";
 		return 0;
 	}
 	choosenPiece = szachy2[choosenColumn][choosenRow];
 	cout << "\n" << choosenPiece << "\n";
-	//cin >> choosenColumn;
-	cout << "\nMove to row:\n ";
+
+	cout << "\nMove to Row:\n ";
 	cin >> moveRow;
-	cout << "\nMove to column:\n ";
+	cout << "\nMove to Column:\n ";
 	cin >> moveColumn;
 	cout << "\n";
 
 	int choosenField = szachy2[moveColumn][moveRow];
-	
 	//cout << "\n\n\nDEBUG: " << choosenField << "\n\n\n---: ";
-	
-	//check for correct movement using the MovementCheck() function
 	MovementCheck* hi = new MovementCheck();
 	hi->movementCheck2(choosenPiece, choosenField, choosenColumn, choosenRow, moveColumn, moveRow);
 	(*pb).MoveTo(moveRow, moveColumn);
 
-	cout << "\n";
-	(*pb).GdzieJestem();
-	cout << "\n";
+	cout << "\n\n";
 	(*pb).Run();
 	szachy2[moveColumn][moveRow] = Piece(choosenPiece);
 	szachy2[choosenColumn][choosenRow] = Piece(none);
